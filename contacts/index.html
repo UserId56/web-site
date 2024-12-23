@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=6f29401e-11ce-4984-ae7d-30d5ed5f980a&lang=ru_RU"
+        type="text/javascript"></script>
+  <script type="module" crossorigin src="../assets/main-D9rut-c_.js"></script>
+  <link rel="stylesheet" crossorigin href="../assets/main-qZiRf76K.css">
+</head>
+
+<body>
+    <div id="star-container" style="position: absolute; width: 100%; overflow: hidden;"></div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="./">Главная</a></li>
+                <li><a href="./products/">Продукция</a></li>
+                <li><a href="./manufacturer/">Производитель</a></li>
+                <li class="header__link"><a href="./contacts/" class="bg__black">Связаться</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="contact">
+        <!-- <div class="contact-map"></div>
+        <div class="contact-data">
+            <h1 class="contact-data-title">Контакты:</h1>
+        </div> -->
+
+        <div class="container">
+            <div id="map"></div>
+            <div class="contacts">
+                <h2>Контакты</h2>
+                <div class="line-container">
+                    <img src="data:image/png;base64,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" alt="Телефон" class="icon">
+                    <p><strong>Телефон:</strong> <a href="tel:+7 (495) 123-45-67" class="color-white">+7 (495)
+                            123-45-67</a>
+                </div>
+                </p>
+                <div class="line-container">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAlyAAAJcgErz99GAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAyNJREFUeJzt2juIXUUcBvDfxkSM64PEiJpV8FEoiho1YIpoVKxCtkyhActtA2kEq5S2NqKIhYJgbRCLgGJstIhJBB8IvhLzIIkR8yAmMa7F3MNe15uZs3vPOXPczAcfC3fPzPm+786Z+Z+5Q0FBQUFBQcHVionI/27EI7gP13Ujp3H8iR/wFc7UbbQGb+AsZpcIz+L1gbco1uGXHghuiz8Lo3okVuHHHohsmwexujK9bCiASeFZWeo4iTtiFzwnBJH7m2qaJ7Ed19RJaTlmcKIHwsflRbyGm+sYn4/Vg8Z/9cDIYrgbDy3G+Hw8hj09MFSX32PLQgy+iFfEC54JvIBDPTB4Jf6OHViR8LEN08Mfzgw6OIiXIo3heuzE+R4YrngZ7+K2hPbH8dmgzcyoACp+jIcTnd05uGlu85/jyYTWNf47l0UDmMUlvCldPj6LAxmMHxJGa+x9ZoWw9P0xon0ygIq/Sa+fXS6b5/AqbojogefxTaSf2gFU3IenEzdte9nchbsTGu7HhzX6WnAACxGxDp82aHwvnkrcc5UwMi7U7HPRAVTDcCdWJkRN46cxjNcpX5cJc8HxBfY9VgAVq4kohpV4WdiQqNtv3fJ1nAm4kQAqfiLynj1AtWz+nehrNx5M9HWX8ZfgRgOYNVeM3JoQ/4zR39p32JxoO6m5IqzxACqeEp7b5REjw8/tKeERuTZy/QS2ana3qrUAKu7HpogpuEW60NqAL1rQ13oAFXfhnoTJUVgrVKKXW9I1w7+3xNrCFnytXvVGeBS241tBZBcaWx0Bw/xVvH6fFvbxu9DS2QgYxhTeEZbNR4c+fwAf4QPc26Wg2EzdJjbhS+HdHDaquVnZNHIFQBh9qVWiExFXNUoAuQXkRgkgt4DcKAHkFpAbJYDcAnKjBJBbQG6UAAZ/L2VVkQcXmQvgaEYhuXCYuZ2Zm4QfNmM7s0sJF4Tt+zPVCDiN9/Pp6RzvGXF0dgrHdLMfl5NHRc4Jrh9ckFtkWzyCJ65kvsJavK1fZ4DG5Xm8hdvnm40dL5kUfpWZ8v8+Ln9YOEd0LrOWgoKCgoKCgp7hH6LstUSyg4JuAAAAAElFTkSuQmCC" alt="Почта" class="icon">
+                    <p><strong>E-mail:</strong> <a href="mailto:info@example.com"
+                            class="color-white">info@example.com</a>
+                    </p>
+                </div>
+                <div class="line-container">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAABuwAAAbsBOuzj4gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAASKSURBVHic7ZtPbBVFHMc/v1pqaKTVA38sImmgBrxIGv/FNCEK0nhAGxNjwl1B7ckohBguHLQHD3JDTzQxJp4kxIRqrUmNB8OB6EFDqgd88ZX0wp+CVCj252Gm8NjsbGffm9ldab/J5L03OzO/33x238zOb2dRVXwSsB0YA64ANWAE6PCtHysBHdaXmvVtDNjuXd/TSCdwHtBEGqkAgJEUv84DnSEB7EkxokCtAgBqDt/2+NRvw0+9jvxNnvVjyuWDy+e75AtAPMtVSV4++wK4Z9UOICLtwF7gRdKhPO5qQESOx3GtZe0TkR32+3VgVFV/SSv4BDBN+kByr6WvAUkMonxfAceKTK8kAVyvgFNFpvHkNLia5aW1jT+W/SywAqBsB8rWCoCyHShbKwDKdqBsLXsA7WU7kKEF4AwwhVmr1O3nBeB+YL1NG4A+YBfwUF4jVQNwA5gATgKnVHXGt6KItAFPA4PAELAju8YdlX1vrsAMMAysCRgq2w18l2Lr5+RiqMyOXwOOhux4CoingPEqAhgFNhQYPD0AXK0CgHngnZIiyL3AJ415Yp0qSpeA11R1Ik8lEekGeoCN9nMOMyvUgWlVnW/FqaLO/O/AVs8z1QYMAB8DfyzR7jxmsBsGHmniqiik8xd9Oo+Zlt+itRjlONBfJQDzwC4PR4aAc4FsLgCfA49WAUDmgAesAj6LZPsy8FKZAEaXML4WmIzsw7/AwTIAXCNjnredX2qAC5mOFQ3gaEbnO4Afc7b3G+Y+vwvzQPQQZu2Qp439RQGYIeP2FjiRs72/gc0p7RzK2c5NYGcRAIYzOv96E+1942hrUxNt1WnYPBEDwD+us48Z8Zv53x/PANqMj0cW68eICE2o6lXHsTeBLRFs5tX7IrIO4oTETqZl2oDFBxHsNaM1wLsQHsACcMpx7Dng4cD2WtGrEB7AGXWHsYYC22pVfSKyLTSAqYxjVQMAsDd0UHQ6LdOu52MNfp82fH8QeBbY7Fm3PzSAuiO/J7Cd21LVA42/7X6nj4D3PKr3hP4LpF4BmEhOIVLVW8Bh4E+P4htDA7jgyI92BaTJQvjJo2jwK6DbkT/XYrteuz4T8nlKNBcaQJ8j3zU2+GpARHwHNmzZAY+i9dAAtroMtdhuJ3BaRAZFpMtVSES6RGQQOG3rLKV66FnABWAauEVrzyIX31dAJNjW5VohV4CauP1kYFshNBEaQK+I3Oc4lrpIKlE3gbHQAFbh3lhdNQCTqjobYzn8Rlqmqv6FeYJTFZ1Y/BI6InQFeMARvXkSs2SOEYbLk85id41DnM3Sb2eEsL6sAIDdjTHBGNvlf80AsAXznL6szn+VjArHemHihQwIL2Oe2BTd+XNAd6Mvoqo+r8w0ox9U9QvXQRE5DHwYyJaPLgPPqOrdQZusZ3exE3CMYs78JeD5VB/KBGAh7MfclMS87B9z2i8bgIWwE7NgCj7gkfjPVxKAhdAJHAFmA3T8LA1T3f8CQAOIdZgXoqdydvoG8C2wj8SrcVnp9t1QFSUi2zCzUz/uXWI1zPbaMVWdzWvjPy8JdV1cpukdAAAAAElFTkSuQmCC" alt="Время работы" class="icon">
+                    <p><strong>Время работы:</strong> <span class="color-white">09:00-18:00 <span class="font-mini">
+                                Пн Вт Ср Чт Пт <span class="color-red cursor-pointer" title="Выходные">Сб
+                                    Вс</span></span>
+                        </span></p>
+                </div>
+                <div class="line-container">
+                    <img src="data:image/png;base64,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" alt="Адрес" class="icon">
+                    <p><strong>Адрес: </strong><a href="https://yandex.ru/maps/?rtext=~55.752199,37.624853&rtt=auto"
+                            target="_blank" rel="noopener noreferrer" class="color-white">Варварка, Москва
+                        </a> </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="feedback">
+        <form class="contact-form">
+            <h2>Обратная связь</h2>
+            <div class="form-group">
+                <label for="name">Имя</label>
+                <input type="text" id="name" name="name" placeholder="Как к вам обращаться?" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Телефон для связи</label>
+                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+            </div>
+            <div class="form-group">
+                <label for="comment">Комментарий</label>
+                <textarea id="comment" name="comment" placeholder="Ваш комментарий"></textarea>
+            </div>
+            <button type="submit" class="submit-button">Отправить</button>
+        </form>
+        <div class="feedback__info">
+            <h3>Мы всегда рады ответить на ваши вопросы и обсудить ваш заказ.</h3>
+            <p>Оставайтесь на связи с нами, а также можете посетить наш офис в любое
+                удобное для вас время.</p>
+        </div>
+    </section>
+
+
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            // Координаты метки
+            const coords = [55.752199, 37.624853];
+            const map = new ymaps.Map("map", {
+                center: coords, // Центр карты
+                zoom: 18, // Масштаб
+            });
+
+            // Создание метки
+            const placemark = new ymaps.Placemark(coords, {
+                balloonContentHeader: "<strong>Царевна Лебедь</strong>",
+                balloonContentBody: `
+              <p><strong>Адрес:</strong> Варварка, Москва</p>
+              <p><strong>Телефон:</strong> +7 (495) 123-45-67</p>
+              <p><strong>E-mail:</strong> info@example.com</p>
+              <p><strong>Рабочее время:</strong> 09:00 - 18:00</p>
+              <a 
+                href="https://yandex.ru/maps/?rtext=~55.752199,37.624853&rtt=auto" 
+                target="_blank"
+                style="color: #0078ff; font-weight: bold; text-decoration: none;"
+              >
+                Проложить маршрут
+              </a>
+            `,
+                balloonContentFooter: "<em>Добро пожаловать!</em>",
+                hintContent: "Царевна Лебедь — ваше место отдыха",
+            });
+
+            // Добавление метки на карту
+            map.geoObjects.add(placemark);
+
+            // Открытие балуна сразу при загрузке карты
+            placemark.balloon.open();
+        }
+    </script>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="./about/">О нас</a></li>
+                <li><a href="./products/">Продукция</a></li>
+                <li><a href="./manufacturer/">Производитель</a></li>
+                <li><a href="./contacts/">Связаться</a></li>
+            </ul>
+        </nav>
+        <div class="social">
+            <a href="#"><img src="../assets/vk-BvBqPE8Z.png" alt="ВК"></a>
+            <a href="#"><img src="../assets/tg-B2iFDu6T.png" alt="Telegram"></a>
+        </div>
+    </footer>
+</body>
+
+</html>
